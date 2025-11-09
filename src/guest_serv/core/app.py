@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from src.guest_serv.api.health import router as health_router
 from src.guest_serv.core.config import cors_settings
 
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="Backoffice API",
+        title="Guest_serv API",
         description="API for guest_serv",
         version="0.1.0",
     )
@@ -19,6 +20,9 @@ def create_app() -> FastAPI:
             allow_methods=cors_settings.allow_methods,
             allow_headers=cors_settings.allow_headers,
         )
+
+    # Router
+    app.include_router(health_router)
 
     return app
 
